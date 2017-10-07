@@ -11,6 +11,7 @@ import {
   List,
   ListItem,
 } from 'material-ui'
+import Tweet from 'react-tweet-embed'
 
 let bounce = keyframes({
   '0%': {
@@ -79,7 +80,6 @@ const Link = glamorous.a<{ available: boolean }>(
     display: 'block',
     width: '100%',
     padding: '8px',
-
     ':visited': {
       color: 'black',
     },
@@ -92,7 +92,7 @@ const Link = glamorous.a<{ available: boolean }>(
   })
 )
 
-const jsEndingRegex = /(.*?)js$/
+const jsEndingRegex = /(.*?)\.js$/
 
 class App extends React.Component<{}, State> {
   state: State = {
@@ -116,9 +116,9 @@ class App extends React.Component<{}, State> {
     let name: string, nameJS: string
     if (jsEndingRegex.test(packageName)) {
       nameJS = packageName
-      name = packageName.substr(0, packageName.length - 2)
+      name = packageName.substr(0, packageName.length - 3)
     } else {
-      nameJS = packageName + 'js'
+      nameJS = packageName + '.js'
       name = packageName
     }
 
@@ -172,6 +172,9 @@ class App extends React.Component<{}, State> {
 
     return (
       <Wrapper>
+        <WideCard>
+          <Tweet id={'370525864523743232'} />
+        </WideCard>
         <WideCard
           style={{
             backgroundColor: avaliable || avaliableJS ? colors.green.A400 : '',

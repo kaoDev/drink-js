@@ -2,6 +2,7 @@ import * as React from 'react'
 import glamorous from 'glamorous'
 import { keyframes } from 'glamor'
 import { checkPackage, PackageAvailable } from './checkPackage'
+import { words } from './words'
 import {
   Card,
   CardHeader,
@@ -108,6 +109,11 @@ class App extends React.Component<{}, State> {
     this.setState({ packageName: e.currentTarget.value.toLowerCase() })
   }
 
+  goRandom = () => {
+    const packageName = words[Math.floor(Math.random() * words.length)]
+    this.setState({ packageName })
+  }
+
   onCheckName = async () => {
     const { packageName, history } = this.state
 
@@ -172,9 +178,7 @@ class App extends React.Component<{}, State> {
 
     return (
       <Wrapper>
-        <WideCard>
-          <Tweet id={'370525864523743232'} />
-        </WideCard>
+        <Tweet id={'370525864523743232'} />
         <WideCard
           style={{
             backgroundColor: avaliable || avaliableJS ? colors.green.A400 : '',
@@ -183,12 +187,15 @@ class App extends React.Component<{}, State> {
         >
           <CardHeader title="Drink JS" />
           <Input
-            placeholder="pick a name"
+            placeholder="pick a noun"
             onChange={this.onNameChange}
             disabled={loading || requestDone}
             onKeyPress={this.submitOnEnter}
             value={packageName}
           />
+          <Button onClick={this.goRandom} disabled={loading || requestDone}>
+            I feel lucky
+          </Button>
           <Button onClick={this.onCheckName} disabled={loading || requestDone}>
             Check
           </Button>
